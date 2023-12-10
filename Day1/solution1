@@ -1,0 +1,34 @@
+def read_data(filename):
+    with open(filename, "r") as f:
+        data=f.readlines()
+    return data
+
+def find_first_digit(line):
+    for char in line:
+        if char.isdigit():
+            return char
+        else:
+            continue
+    return f"error: no integer found in line {line}"
+def find_last_digit(line):
+    for char in reversed(line):
+        if char.isdigit():
+            return char
+        else:
+            continue
+    return f"error: no integer found in line {line}"
+
+def final_tally(data):
+    calibration_value=0
+    for line in data:
+        first_char=find_first_digit(line)
+        second_char=find_last_digit(line)
+        calibration_value+=int(f'{first_char}{second_char}')
+    return calibration_value
+
+
+if __name__=='__main__':
+    data=read_data('input.txt')
+    final_value=final_tally(data)
+    print(final_value)
+    
