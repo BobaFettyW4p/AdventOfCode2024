@@ -28,7 +28,7 @@ def final_tally(data):
 
 
 if __name__=='__main__':
-    data=read_data('input.txt')
+    data=read_data('Day1/input.txt')
     final_value=final_tally(data)
-    print(final_value)
+    print(final_value) #55971
     
