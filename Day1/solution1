@@ -10,6 +10,15 @@ def find_first_digit(line):
         else:
             continue
     return f"error: no integer found in line {line}"
+
+def find_first_digit_index(line):
+    for char in line:
+        if char.isdigit():
+            return line.find(char)
+        else:
+            continue
+    return f"error: no integer found in line {line}"
+
 def find_last_digit(line):
     for char in reversed(line):
         if char.isdigit():
@@ -17,6 +26,14 @@ def find_last_digit(line):
         else:
             continue
     return f"error: no integer found in line {line}"
+
+def find_last_digit_index(line):
+    for char in reversed(line):
+        if char.isdigit():
+            return line.rfind(char)
+        else:
+            continue
+    return f"error: no integeer found in line {line}"
 
 def final_tally(data):
     calibration_value=0
@@ -26,9 +43,34 @@ def final_tally(data):
         calibration_value+=int(f'{first_char}{second_char}')
     return calibration_value
 
+def final_tally_enhanced(data):
+    calibration_value=0
+    for line in data:
+        print(f"processing {line}")
+        left_index=find_first_digit_index(line)
+        right_index=find_last_digit_index(line)
+        left_value=line[left_index]
+        right_value=line[right_index]
+        for digit in digits.keys():
+            if digit in line:
+                digit_index_left=line.find(digit)
+                digit_index_right=line.rfind(digit)
+                if digit_index_left<left_index:
+                    left_index=digit_index_left
+                    left_value=digits[digit]
+                if digit_index_right>right_index:
+                    right_index=digit_index_right
+                    right_value=digits[digit]
+        print(f"adding {left_value}{right_value} to calibration value")
+        calibration_value+=int(f"{left_value}{right_value}")
+    return calibration_value
+
 
 if __name__=='__main__':
     data=read_data('Day1/input.txt')
-    final_value=final_tally(data)
-    print(final_value) #55971
+    digits = {"one":1,"two":2,"three":3,"four":4,"five":5,"six":6,"seven":7,"eight":8,"nine":9}
+    #final_value=final_tally(data)
+    #print(final_value) #55971
+    updated_final_value=final_tally_enhanced(data)
+    print(updated_final_value) #54719
     
