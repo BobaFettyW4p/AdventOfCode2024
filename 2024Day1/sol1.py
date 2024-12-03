@@ -23,6 +23,12 @@ def compare_datasets(leftSide,rightSide):
         answer+=abs(int(leftSide[i])-int(rightSide[i]))
     return answer
     
+def calculate_similarity_score(leftSide,rightSide):
+    similarityScore=0
+    for item in leftSide:
+        rightSideAppearance=rightSide.count(item)
+        similarityScore+=int(item)*rightSideAppearance
+    return similarityScore
 
 dataset=get_data()
 leftSide,rightSide=process_data(dataset)
